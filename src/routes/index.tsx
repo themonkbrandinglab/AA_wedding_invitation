@@ -146,7 +146,7 @@ function Invitation() {
     await startAudio();
   };
   return <main>
-    <div className={`opening ${lit ? 'is-opening' : ''} ${entered ? 'opening-done' : ''}`} aria-hidden={entered} role={lit ? undefined : 'button'} onClick={lit ? undefined : lightLamp} onTouchEnd={lit ? undefined : (e) => { e.preventDefault(); lightLamp(); }}>
+    <div className={`opening ${lit ? 'is-opening' : ''} ${entered ? 'opening-done' : ''}`} aria-hidden={entered} onClick={lit ? undefined : lightLamp}>
       <div className="opening-world" style={{ backgroundImage: `url(${dawn})` }} />
       <div className="opening-glow" />
       <div className="door-stage">
