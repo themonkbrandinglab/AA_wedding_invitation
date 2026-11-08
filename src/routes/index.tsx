@@ -18,10 +18,10 @@ const { bride, groom } = weddingData;
 export const Route = createFileRoute('/')({
   ssr: false,
   head: () => ({ meta: [
-    { title: 'Aruna × Aravind | A Tale of Dawn & Lotus' },
-    { name: 'description', content: 'Join Aruna and Aravind in Bengaluru and Salem for a celebration of love, light, and new beginnings.' },
-    { property: 'og:title', content: 'Aruna × Aravind | A Tale of Dawn & Lotus' },
-    { property: 'og:description', content: 'A cinematic Tamil wedding invitation. Celebrate with us in Bengaluru and Salem.' },
+    { title: 'Aravind × Aruna | A Tale of Dawn & Lotus' },
+    { name: 'description', content: 'Join Aravind and Aruna in Salem for a celebration of love, light, and new beginnings.' },
+    { property: 'og:title', content: 'Aravind × Aruna | A Tale of Dawn & Lotus' },
+    { property: 'og:description', content: 'A cinematic Tamil wedding invitation. Celebrate with us in Salem.' },
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
   ] }),
@@ -66,7 +66,7 @@ function CountDown() {
 }
 function EventActions({ event, prominent = false }: { event: WeddingEvent; prominent?: boolean }) {
   return <div className={`event-actions ${prominent ? 'prominent' : ''}`}>
-    <a href={directionsUrl(event)} target="_blank" rel="noopener noreferrer"><Navigation size={15} /> Get Directions</a>
+    {event.directionsUrl && <a href={directionsUrl(event)} target="_blank" rel="noopener noreferrer"><Navigation size={15} /> Get Directions</a>}
     <a href={calendarUrl(event)} target="_blank" rel="noopener noreferrer"><CalendarDays size={15} /> Add to Calendar</a>
     {prominent && <a href="#rsvp"><ArrowRight size={15} /> RSVP</a>}
   </div>;
@@ -158,7 +158,7 @@ function Invitation() {
     </div>
     <header className="site-header"><a href="#home" className="monogram">A <span>✦</span> A</a><nav aria-label="Main navigation"><a href="#events">THE CELEBRATION</a><a href="#venue">VENUE</a><a href="#rsvp">RSVP</a></nav><Button variant="ghost" size="icon" className="sound-button" title={audioOn ? 'Mute traditional wedding music' : 'Play traditional wedding music'} aria-label={audioOn ? 'Mute traditional wedding music' : 'Play traditional wedding music'} onClick={toggleAudio}>{audioOn ? <Volume2 size={19} /> : <VolumeX size={19} />}</Button></header>
     <section id="home" className="hero"><img className="hero-image" src={dawn} alt="Lotus on a pond at sunrise within a South Indian temple courtyard" width={1536} height={1024} /><div className="hero-scrim" /><span className="dawn-sweep hero-sweep" aria-hidden="true" /><Petals /><div className="hero-content"><span className="eyebrow">A CELEBRATION OF LOVE &amp; LIGHT</span><div className="hero-mark">✦</div><h1>{bride} <span>×</span> {groom}</h1><p className="hero-title">{weddingData.title}</p><p className="hero-tamil">{weddingData.tamilTitle}</p><div className="hero-rule"><span>✧</span></div>{muhurthamEvent && <p className="hero-date">{eventDate(muhurthamEvent)} <span>·</span> SALEM, TAMIL NADU</p>}</div><a href="#story" className="scroll-prompt">SCROLL TO DISCOVER <ArrowDown size={14} /></a></section>
-    <section id="story" className="story-section"><div className="story-inner reveal"><div className="story-columns"><div><span className="story-symbol">☀</span><h2>Aruna</h2><p>Of the dawn. The first golden warmth that turns darkness into light.</p></div><div className="story-and">&amp;</div><div><img className="story-lotus" src={lotus} alt="" aria-hidden="true" width={1024} height={1024} loading="lazy" /><h2>Aravind</h2><p>Of the lotus. A quiet bloom, beautiful in its beginning.</p></div></div><p className="story-ending">Where dawn meets lotus, forever begins.</p></div></section>
+    <section id="story" className="story-section"><div className="story-inner reveal"><div className="story-columns"><div><img className="story-lotus" src={lotus} alt="" aria-hidden="true" width={1024} height={1024} loading="lazy" /><h2>Aravind</h2><p>Of the lotus. A quiet bloom, beautiful in its beginning.</p></div><div className="story-and">&amp;</div><div><span className="story-symbol">☀</span><h2>Aruna</h2><p>Of the dawn. The first golden warmth that turns darkness into light.</p></div></div><p className="story-ending">Where lotus meets dawn, forever begins.</p></div></section>
     <CountDown />
     <div id="events" className="events-intro lotus-watermark"><h2>The celebrations</h2><p>From the first promise to a lifetime together.</p></div>
     {weddingData.events.map((event, index) => <div key={event.id} className="contents">{event.id === 'reception' && <div className="dusk-transition" aria-hidden="true"><span>FROM SUNRISE TO TWILIGHT</span></div>}<EventSection event={event} index={index} /></div>)}
