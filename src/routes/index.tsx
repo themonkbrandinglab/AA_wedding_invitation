@@ -116,10 +116,15 @@ function Invitation() {
       try {
         song.volume = 0;
         await song.play();
+        const fadeStart = Date.now();
+        const fadeDuration = 2000; // 2-second fade-in
+        const targetVolume = 0.75;
         const fade = window.setInterval(() => {
-          if (!song || song.volume >= 0.75) { window.clearInterval(fade); return; }
-          song.volume = Math.min(0.75, song.volume + 0.02);
-        }, 200);
+          if (!song) { window.clearInterval(fade); return; }
+          const progress = Math.min((Date.now() - fadeStart) / fadeDuration, 1);
+          song.volume = targetVolume * progress;
+          if (progress >= 1) window.clearInterval(fade);
+        }, 50);
         setAudioOn(true);
         return;
       } catch { /* song unavailable — fall back to the ambient melody */ }
